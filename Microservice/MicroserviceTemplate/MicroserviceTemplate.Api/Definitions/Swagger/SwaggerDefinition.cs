@@ -85,6 +85,7 @@ public class SwaggerDefinition : Definition
             
             var url = identityConfiguration.GetSection("IdentityServerUrl").GetValue<string>("Authority");
             var currentClient = identityConfiguration.GetSection("CurrentIdentityClient").Get<IdentityClientOption>()!;
+            var scopes = currentClient.Scopes!.ToDictionary(x => x, x => x);
 
             options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
             {
@@ -95,7 +96,17 @@ public class SwaggerDefinition : Definition
                     {
                         AuthorizationUrl = new Uri($"{url}/connect/authorize", UriKind.Absolute),
                         TokenUrl = new Uri($"{url}/connect/token", UriKind.Absolute),
-                        Scopes = currentClient.Scopes!.ToDictionary(x => x, x=> x),
+                        Scopes = scopes,
+                    },
+                    ClientCredentials = new OpenApiOAuthFlow
+                    {
+                        Scopes = scopes,
+                        TokenUrl = new Uri($"{url}/connect/token", UriKind.Absolute),
+                    },
+                    Password = new OpenApiOAuthFlow
+                    {
+                        TokenUrl = new Uri($"{url}/connect/token", UriKind.Absolute),
+                        Scopes = scopes,
                     }
                 }
             });

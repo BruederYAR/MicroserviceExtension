@@ -5,9 +5,9 @@
   },
   
   "CurrentIdentityClient": {
-    "Name" : "MicroserviceAuthorizationCode",
-    "Id" : "MicroserviceAuthorizationCode-4523f-21321",
-    "Secret": "MicroserviceAuthorizationCode-4523f-21321_21354g",
+    "Name" : "Microservice.Identity",
+    "Id" : "Microservice.Identity-4523f-21321",
+    "Secret": "Microservice.Identity-4523f-21321_21354g",
     "ConsentType" : "implicit",
     "GrandTypes": [
       "refresh_token",
